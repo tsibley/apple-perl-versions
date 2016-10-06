@@ -1,0 +1,2 @@
+releases.txt: scrape-releases
+	./$< > $@

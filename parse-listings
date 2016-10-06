@@ -1,0 +1,22 @@
+#!/usr/bin/env perl
+use 5.010;
+use strict;
+use warnings;
+
+$|++;
+
+say join "\t", qw[ os_version os_build apple_perl_build ];
+
+my @os;
+while (<>) {
+    if (/^#/) {
+        if (/OS X ([\d.]+) (\S+)/) {
+            @os = ($1, $2);
+        } else {
+            die "Unknown header line: $_";
+        }
+    }
+    elsif (/^perl \t (\S+)/x) {
+        say join "\t", @os, $1;
+    }
+}
