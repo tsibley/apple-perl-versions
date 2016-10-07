@@ -1,0 +1,5 @@
+BEGIN {
+    $table = do { local $/; <STDIN> };
+}
+print $table, "\n" if /^Perl version/;
+print unless /^Perl version/ .. /^$/;

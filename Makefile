@@ -1,3 +1,6 @@
+README.md: format-table release-versions.txt
+	./format-table | perl -ni update-readme $@
+
 releases.txt: scrape-releases
 	./$< > $@
 

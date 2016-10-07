@@ -1,0 +1,9 @@
+#!/bin/bash
+set -e -o pipefail -o nounset
+
+recs fromcsv -d $'\t' --header release-versions.txt \
+    | recs collate -k perl_version --dlk 'os_major=<< join ".", (split /[.]/, {{os_version}})[0,1] >>' \
+    | recs xform '$r->rename("perl_version", "Perl version");
+                  $r->rename("os_major",     "OS X version")' \
+    | recs totable -k 'Perl version,OS X version' \
+    | perl -pe 's/\s{3}(?=\S)/ | /'
