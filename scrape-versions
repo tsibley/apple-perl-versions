@@ -1,0 +1,10 @@
+#!/bin/bash
+set -e -o pipefail -o nounset
+
+printf '%s\t' apple_perl_build perl_version available_perl_versions
+echo
+
+recs fromcsv -d $'\t' --header "$@" \
+    | recs eval '{{apple_perl_build}}' \
+    | sort -ru \
+    | parallel ./parse-build-config {}

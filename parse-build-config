@@ -1,0 +1,40 @@
+#!/bin/bash
+#
+# Parses Apple's Perl build Makefile.inc for variable values.
+#
+# An example:
+#   DEFAULT = 5.18
+#   KNOWNVERSIONS = 5.16 5.18
+#
+set -e -o pipefail -o nounset
+
+if [[ $# -eq 0 || -z $1 ]]; then
+  echo "usage: $(basename $0) build-number" >&2
+  exit 1
+fi
+
+build=$1
+
+function parse_makefile() {
+  sort \
+    | perl -anle 'print join "|", splice @F, 2' \
+    | paste --serial
+}
+
+printf '%s\t' $build
+
+if [[ ${build/.*} -ge 92 ]]; then
+  curl -fsS https://opensource.apple.com/source/perl/perl-$build/Platforms/MacOSX/Makefile.inc?txt \
+    | grep -P '^(DEFAULT|KNOWNVERSIONS) =' \
+    | parse_makefile
+
+elif [[ ${build/.*} -ge 63 ]]; then
+  curl -fsS http://opensource.apple.com/source/perl/perl-$build/Makefile?txt \
+    | grep -P '^(DEFAULT|VERSIONS) =' \
+    | parse_makefile
+
+else
+  curl -fsS http://opensource.apple.com/source/perl/perl-$build/dpkg/control?txt \
+    | grep -oP '(?<=^Version: )\S+' \
+    | perl -nle 'chomp; print "$_\t"'
+fi
