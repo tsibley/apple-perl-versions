@@ -21,20 +21,31 @@ function parse_makefile() {
     | paste --serial
 }
 
-printf '%s\t' $build
+function extract-major-versions() {
+  if [[ ${build/.*} -ge 92 ]]; then
+    curl -fsS https://opensource.apple.com/source/perl/perl-$build/Platforms/MacOSX/Makefile.inc?txt \
+      | grep -m1 -P '^KNOWNVERSIONS =' \
+      | perl -anle 'print for splice @F, 2'
 
-if [[ ${build/.*} -ge 92 ]]; then
-  curl -fsS https://opensource.apple.com/source/perl/perl-$build/Platforms/MacOSX/Makefile.inc?txt \
-    | grep -P '^(DEFAULT|KNOWNVERSIONS) =' \
-    | parse_makefile
+  elif [[ ${build/.*} -ge 63 ]]; then
+    curl -fsS http://opensource.apple.com/source/perl/perl-$build/Makefile?txt \
+      | grep -m1 -P '^VERSIONS =' \
+      | perl -anle 'print for splice @F, 2'
 
-elif [[ ${build/.*} -ge 63 ]]; then
-  curl -fsS http://opensource.apple.com/source/perl/perl-$build/Makefile?txt \
-    | grep -P '^(DEFAULT|VERSIONS) =' \
-    | parse_makefile
+  else
+    curl -fsS http://opensource.apple.com/source/perl/perl-$build/dpkg/control?txt \
+      | grep -oP '(?<=^Version: )\S+' \
+      | perl -nle 'chomp; print "$_\t"'
+  fi
+}
 
-else
-  curl -fsS http://opensource.apple.com/source/perl/perl-$build/dpkg/control?txt \
-    | grep -oP '(?<=^Version: )\S+' \
-    | perl -nle 'chomp; print "$_\t"'
-fi
+function map-to-minor-version() {
+  major=$1
+  curl -fsS https://opensource.apple.com/source/perl/perl-$build/$major/GNUmakefile?txt \
+    | grep -m1 -P '^VERSION =' \
+    | perl -anle 'print $F[2]'
+}
+
+for major in $(extract-major-versions); do
+  map-to-minor-version $major
+done
