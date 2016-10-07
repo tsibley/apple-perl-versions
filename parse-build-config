@@ -17,7 +17,7 @@ build=$1
 
 function parse_makefile() {
   sort \
-    | perl -anle 'print join "|", splice @F, 2' \
+    | perl -anle 'print join "|", sort { $b <=> $a } splice @F, 2' \
     | paste --serial
 }
 
