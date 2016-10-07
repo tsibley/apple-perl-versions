@@ -1,0 +1,12 @@
+#!/bin/bash
+set -e -o pipefail -o nounset
+
+releases=$1
+versions=$2
+
+recs join \
+    apple_perl_build apple_perl_build \
+    <(recs fromcsv -d $'\t' --header $releases) \
+    <(recs fromcsv -d $'\t' --header $versions) \
+        | recs tocsv -d $'\t' -k os_version,os_build,perl_version,available_perl_versions \
+        | sort -rVk 1,1
