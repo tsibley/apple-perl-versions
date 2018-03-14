@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e -o pipefail -o nounset
 curl -fsS https://opensource.apple.com \
-    | grep -oP '(?<=/release/)(mac-)?os-x-\d+(?=[/"])' \
+    | grep -oP '(?<=/release/)(macos|(mac-)?os-x)-\d+(?=\.html)' \
     | parallel curl -fsS https://opensource.apple.com/text/{}.txt \
     | ./parse-listings \
     | sort -ruVk 1,1
