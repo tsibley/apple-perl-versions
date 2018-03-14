@@ -3,7 +3,11 @@ set -e -o pipefail -o nounset
 
 recs fromcsv -d $'\t' --header release-versions.txt \
     | recs collate -k perl_version --dlk 'os_major=<< join ".", (split /[.]/, {{os_version}})[0,1] >>' \
+    | recs join --left os_major os_major /dev/stdin <(recs fromcsv -d $'\t' --header codenames.txt) \
+    | recs xform '$r->{sort_key} = (split /[.]/, {{os_major}})[1]' \
+    | recs sort -k sort_key=-n \
     | recs xform '$r->rename("perl_version", "Perl version");
-                  $r->rename("os_major",     "OS X version")' \
-    | recs totable -k 'Perl version,OS X version' \
-    | perl -pe 's/\s{3}(?=\S)/ | /'
+                  $r->rename("os_major",     "OS version");
+                  $r->rename("os_codename",  "OS name")' \
+    | recs totable -k 'Perl version,OS version,OS name' \
+    | perl -pe 's/\s{3}(?=\S)/ | /g'

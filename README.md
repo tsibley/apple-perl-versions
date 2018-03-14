@@ -2,22 +2,24 @@
 
 Look no further, my friend:
 
-Perl version | OS X version
------------- | ------------
-5.18         | 10.13       
-5.18         | 10.12       
-5.18         | 10.11       
-5.18         | 10.10       
-5.16         | 10.9        
-5.12         | 10.8        
-5.12         | 10.7        
-5.10         | 10.6        
-5.6.0        | 10.5        
-5.6.0        | 10.4        
-5.6.0        | 10.3        
-5.6.0        | 10.2        
-5.6.0        | 10.1        
-5.6.0        | 10.0        
+Perl version | OS version | OS name      
+------------ | ---------- | -------------
+5.18         | 10.13      | High Sierra  
+5.18         | 10.12      | Sierra       
+5.18         | 10.11      | El Capitan   
+5.18         | 10.10      | Yosemite     
+5.16         | 10.9       | Mavericks    
+5.12         | 10.8       | Mountain Lion
+5.12         | 10.7       | Lion         
+5.10         | 10.6       | Snow Leopard 
+5.6.0        | 10.5       | Leopard      
+5.6.0        | 10.4       | Tiger        
+5.6.0        | 10.3       | Panther      
+5.6.0        | 10.2       | Jaguar       
+5.6.0        | 10.1       | Puma         
+5.6.0        | 10.0       | Cheetah      
+
+
 
 See the [release-versions.txt][] data file in this repo for the full details,
 such as the alternate Perl versions shipped with each OS X version.
