@@ -4,6 +4,8 @@ Look no further, my friend:
 
 Perl version | OS X version
 ------------ | ------------
+5.18         | 10.13       
+5.18         | 10.12       
 5.18         | 10.11       
 5.18         | 10.10       
 5.16         | 10.9        

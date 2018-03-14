@@ -24,17 +24,17 @@ function parse_makefile() {
 printf '%s\t' $build
 
 if [[ ${build/.*} -ge 92 ]]; then
-  curl -fsS https://opensource.apple.com/source/perl/perl-$build/Platforms/MacOSX/Makefile.inc?txt \
+  curl -fsSL https://opensource.apple.com/source/perl/perl-$build/Platforms/MacOSX/Makefile.inc?txt \
     | grep -P '^(DEFAULT|KNOWNVERSIONS) =' \
     | parse_makefile
 
 elif [[ ${build/.*} -ge 63 ]]; then
-  curl -fsS http://opensource.apple.com/source/perl/perl-$build/Makefile?txt \
+  curl -fsSL https://opensource.apple.com/source/perl/perl-$build/Makefile?txt \
     | grep -P '^(DEFAULT|VERSIONS) =' \
     | parse_makefile
 
 else
-  curl -fsS http://opensource.apple.com/source/perl/perl-$build/dpkg/control?txt \
+  curl -fsSL https://opensource.apple.com/source/perl/perl-$build/dpkg/control?txt \
     | grep -oP '(?<=^Version: )\S+' \
     | perl -nle 'chomp; print "$_\t"'
 fi
