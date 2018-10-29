@@ -4,6 +4,7 @@ Look no further, my friend:
 
 Perl version | OS version | OS name      
 ------------ | ---------- | -------------
+5.18.2       | 10.14      | Mojave
 5.18         | 10.13      | High Sierra  
 5.18         | 10.12      | Sierra       
 5.18         | 10.11      | El Capitan   
