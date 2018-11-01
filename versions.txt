@@ -1,4 +1,6 @@
 apple_perl_build	perl_version	available_perl_versions	
+113.71.2	5.18	5.18
+113.51.2	5.18	5.18
 113.31.1	5.18	5.18
 113	5.18	5.18
 107.50.3	5.18	5.18|5.16

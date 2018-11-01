@@ -1,4 +1,7 @@
 os_version	os_build	apple_perl_build
+10.13.6	LoboGoat17G65	113.71.2
+10.13.5	LoboFox17F77	113.51.2
+10.13.4	LoboElk17E199	113.51.2
 10.13.3	LoboDeer17D47	113.31.1
 10.13.2	LoboChipmunk17C88	113.31.1
 10.13.1	LoboBison17B48	113

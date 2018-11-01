@@ -1,4 +1,7 @@
 os_version	os_build	perl_version	available_perl_versions
+10.13.6	LoboGoat17G65	5.18	5.18
+10.13.5	LoboFox17F77	5.18	5.18
+10.13.4	LoboElk17E199	5.18	5.18
 10.13.3	LoboDeer17D47	5.18	5.18
 10.13.2	LoboChipmunk17C88	5.18	5.18
 10.13.1	LoboBison17B48	5.18	5.18
