@@ -6,5 +6,5 @@ echo
 
 recs fromcsv -d $'\t' --header "$@" \
     | recs eval '{{apple_perl_build}}' \
-    | sort -ru \
-    | parallel ./parse-build-config {}
+    | sort -Vru \
+    | parallel --keep-order ./parse-build-config {}
